@@ -6,7 +6,7 @@
     "issue_tracker": "https://github.com/libdyson-wg/ha-dyson/issues",
     "dependencies": ["zeroconf"],
     "codeowners": ["@libdyson-wg"],
-    "requirements": ["libdyson-neon==0.10.2"],
-    "version": "0.17.2",
+    "requirements": ["git+https://github.com/dotvezz/libdyson-neon@task/formaldehyde-refactor#libdyson-neon==0.11.0"],
+    "version": "0.18.3",
     "iot_class": "local_polling"
 }

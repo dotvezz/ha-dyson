@@ -7,10 +7,11 @@ from libdyson import (
     Dyson360Heurist,
     DysonDevice,
     DysonPureCoolLink,
-    DysonPureHumidifyCool,
-    DysonPurifierHumidifyCoolFormaldehyde,
+    DysonPurifierHumidifyCool,
 )
+
 from libdyson.const import MessageType
+from libdyson.dyson_device import DysonFanDevice
 
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass, SensorEntity
 from homeassistant.config_entries import ConfigEntry
@@ -48,6 +49,12 @@ async def async_setup_entry(
             DysonTemperatureSensor(coordinator, device, name),
             DysonVOCSensor(coordinator, device, name),
         ]
+
+        print("Interviewing 1")
+        if isinstance(device, DysonFanDevice):
+            print("Interviewing 2")
+            device.interview()
+
         if isinstance(device, DysonPureCoolLink):
             entities.extend(
                 [
@@ -55,7 +62,7 @@ async def async_setup_entry(
                     DysonParticulatesSensor(coordinator, device, name),
                 ]
             )
-        else:  # DysonPureCool or DysonPureHumidifyCool
+        else:  # DysonPureCool or DysonPurifierHumidifyCool
             entities.extend(
                 [
                     DysonPM25Sensor(coordinator, device, name),
@@ -72,11 +79,15 @@ async def async_setup_entry(
                         DysonHEPAFilterLifeSensor(device, name),
                     ]
                 )
-        if isinstance(device, DysonPureHumidifyCool) or isinstance(
-            device, DysonPurifierHumidifyCoolFormaldehyde):
+        if isinstance(device, DysonPurifierHumidifyCool):
             entities.append(DysonNextDeepCleanSensor(device, name))
-        if isinstance(device, DysonPurifierHumidifyCoolFormaldehyde):
+        print("Checking for Formaldehyde 1")
+        if hasattr(device, "formaldehyde"):
+            print("Checking for Formaldehyde 2")
             entities.append(DysonHCHOSensor(coordinator, device, name))
+        if hasattr(device, "test"):
+            entities.append(DysonTestSensor(coordinator, device, name))
+        entities.append(DysonTestSensor2(coordinator, device, name))
     async_add_entities(entities)
 
 
@@ -335,3 +346,31 @@ class DysonHCHOSensor(DysonSensorEnvironmental):
     def state(self) -> int:
         """Return the state of the sensor."""
         return self._device.formaldehyde
+
+
+class DysonTestSensor(DysonSensorEnvironmental):
+    """Dyson sensor for Formaldehyde."""
+
+    _SENSOR_TYPE = "test"
+    _SENSOR_NAME = "Test"
+    _attr_device_class = SensorDeviceClass.WEIGHT
+    _attr_unit_of_measurement = ""
+
+    @environmental_property
+    def state(self) -> int:
+        """Return the state of the sensor."""
+        return self._device.test
+
+
+class DysonTestSensor2(DysonSensorEnvironmental):
+    """Dyson sensor for Formaldehyde."""
+
+    _SENSOR_TYPE = "test2"
+    _SENSOR_NAME = "Test2"
+    _attr_device_class = SensorDeviceClass.WEIGHT
+    _attr_unit_of_measurement = ""
+
+    @environmental_property
+    def state(self) -> int:
+        """Return the state of the sensor."""
+        return 2
