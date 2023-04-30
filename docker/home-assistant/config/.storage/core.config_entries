@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "core.config_entries",
+  "data": {
+    "entries": [
+      {
+        "entry_id": "69fdfb1bbb204d3bc87033ac8b0bdb00",
+        "version": 1,
+        "domain": "sun",
+        "title": "Sun",
+        "data": {},
+        "options": {},
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "import",
+        "unique_id": null,
+        "disabled_by": null
+      },
+      {
+        "entry_id": "5bbaa2ef20da56044e8b8b3c408e903c",
+        "version": 1,
+        "domain": "radio_browser",
+        "title": "Radio Browser",
+        "data": {},
+        "options": {},
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "onboarding",
+        "unique_id": null,
+        "disabled_by": null
+      }
+    ]
+  }
+}
