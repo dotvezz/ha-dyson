@@ -1,6 +1,6 @@
 # HomeAssistant Custom Integration for Dyson
 
-This is a HA custom integration for dyson under active development.
+This is a Home Assistant custom integration for dyson under active development.
 
 - It does not rely on a dyson account. Which means once configured, the integration will no longer login to the Dyson cloud service so fast and more reliable start up process.
 - Config flow and discovery is supported, so easier configuration.
@@ -14,10 +14,9 @@ If you used the original repository from shenxn, you can migrate fairly easily:
  This is less proven, but it is possible to switch over with zero impact to your current integration configuration, entities/devices, or dashboards. I don't know what side-effects it may have though (leftover old config data might start causing issues or something - no guarantees).
 
 1. Remove the ha-dyson and ha-dyson-cloud custom repositories from HACS
-    - _Without_ removing the integrations themselves.
-3. Add the new [ha-dyson](https://github.com/libdyson-wg/ha-dyson) and [ha-dyson-cloud](https://github.com/libdyson-wg/ha-dyson-cloud) custom repositories 
-    - The ha-dyson-cloud repository is only necessary if you already use it, or are intending to use its features. It is not required, but currently, it makes setting up new devices like HP07 (527K) much simpler.
-4. Update the ha-dyson and ha-dyson-cloud repositories using the HACS updater
+    - _Without_ removing the integrations themselves
+3. Install the new [ha-dyson](https://github.com/libdyson-wg/ha-dyson)
+    - If an update is available, update the ha-dyson repository using the HACS updater
 
 ### Proven some-reconfiguration migration
 
@@ -26,21 +25,16 @@ This is proven to work without any side effects. If you used the default IDs for
 1. Remove the Dyson Local and Dyson Cloud _integrations_ from your /config/integrations page.
 1. Remove the Dyson Local and Dyson Cloud _integrations_ from your /hacs/integrations page.
 2. Remove the dyson-ha and dyson-ha-cloud custom repositories from HACS
-3. Add the new [dyson-ha](https://github.com/libdyson-wg/ha-dyson) and [dyson-ha-cloud](https://github.com/libdyson-wg/ha-dyson-cloud) custom repositories 
-    - The libdyson-ha-cloud repository is only necessary if you already use it, or are intending to use its features. It is not required, but currently, it makes setting up new devices like HP07 (527K) much simpler.
-4. Update the dyson-ha and dyson-ha-cloud repositories
+3. Add the new [dyson-ha](https://github.com/libdyson-wg/ha-dyson)
+    - If an update is available, update the ha-dyson repository using the HACS updater
 
 ## Installation
 
 The minimum supported Home Assistant version is 2021.12.0.
 
-You can install using HACS. Adding https://github.com/libdyson-wg/ha-dyson as custom repository and then install Dyson Local. If you want cloud functionalities as well, add https://github.com/libdyson-wg/ha-dyson-cloud and install Dyson Cloud.
+You can install using HACS. If it is not yet available in the default HACS search, you can add https://github.com/libdyson-wg/ha-dyson as a custom repository. 
 
-You can also install manually
-
-## Local and Cloud
-
-There are two integrations, Dyson Local and Dyson Cloud. Due to the limitation of HACS, they are split into two repositories. This repository hosts Dyson Local, and https://github.com/libdyson-wg/ha-dyson-cloud hosts Dyson Cloud.
+You can also install manually by copying the `custom_components` from this repository into your Home Assistant installation.
 
 ### Dyson Devices Supported
 
